@@ -1,0 +1,295 @@
+<div class="d-flex">
+  <app-sidebar></app-sidebar>
+
+  <div class="container-fluid p-4">
+    <!-- Loading state -->
+    <div *ngIf="cargando" class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div *ngIf="error && !cargando" class="alert alert-danger">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      No se pudo cargar la historia clínica. Verifique el ID o intente de nuevo.
+    </div>
+
+    <!-- Content -->
+    @if (historiaClinica && !cargando) {
+    <div class="row mb-3">
+      <div class="col">
+        <h1 class="h3 mb-0">Información de la Historia Clínica</h1>
+        <p class="text-muted">N° Historia: <strong>{{ historiaClinica.numeroHistoriaClinica }}</strong></p>
+      </div>
+    </div>
+
+    <div class="card shadow-lg border-0 rounded-4">
+      <div class="card-header bg-primary text-white rounded-top-4 d-flex align-items-center justify-content-between">
+        <h4 class="mb-0">
+          <i class="bi bi-file-medical-fill me-2"></i> Detalles de la Historia Clínica
+        </h4>
+        
+      </div>
+
+      <div class="card-body p-4">
+
+        <!-- DATOS GENERALES / TRIAJE -->
+        <h5 class="text-primary border-bottom pb-2 mb-3">Datos Generales / Triaje</h5>
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Tipo Documento</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.documentoIdentidad?.tipoDocumento ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">N° Documento</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.documentoIdentidad?.numeroDocumento ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Apellidos</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.apellidos ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Nombres</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.nombres ?? '—' }}</p>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label text-muted small">Género</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.genero ?? '—' }}</p>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label text-muted small">Estado Civil</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.estadoCivil ?? '—' }}</p>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label text-muted small">Fecha Nacimiento</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.fechaNacimiento ?? '—' }}</p>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label text-muted small">Edad</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.edad ?? '—' }}</p>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label text-muted small">Fecha Atención</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.fechaAtencion ?? '—' }}</p>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label text-muted small">Hora Atención</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.horaAtencion ?? '—' }}</p>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Ocupación</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.ocupacion ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Lugar Nacimiento</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.lugarNacimiento ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Teléfono</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.telefono ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Religión</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.religion ?? '—' }}</p>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted small">Domicilio Actual</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.domicilioActual ?? '—' }}</p>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted small">Datos Acompañante</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.datosAcompanante ?? '—' }}</p>
+          </div>
+        </div>
+
+        <!-- DETALLES ATENCIÓN -->
+        <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Detalles de la Atención</h5>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Especialidad</label>
+            <p class="fw-semibold"><span class="badge bg-info text-dark fs-6">{{ historiaClinica.especialidad ?? '—' }}</span></p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Especialista</label>
+            <p class="fw-semibold">{{ historiaClinica.especialista ?? '—' }}</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Paciente Primera Atención</label>
+            <p class="fw-semibold">
+              <span class="badge" [class.bg-success]="historiaClinica.pacientePrimeraAtencion" [class.bg-secondary]="!historiaClinica.pacientePrimeraAtencion">
+                {{ historiaClinica.pacientePrimeraAtencion ? 'Sí' : 'No' }}
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <!-- SIGNOS VITALES -->
+        <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Signos Vitales (CFV)</h5>
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Frec. Cardiaca (FC)</label>
+            <p class="fw-semibold">{{ historiaClinica.signosVitalesCFV?.frecuenciaCardiaca ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Presión Arterial (PA)</label>
+            <p class="fw-semibold">{{ historiaClinica.signosVitalesCFV?.presionArterial ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Saturación O₂ (SpO2)</label>
+            <p class="fw-semibold">{{ historiaClinica.signosVitalesCFV?.['saturaciónArterialOxígeno'] ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Temperatura (°C)</label>
+            <p class="fw-semibold">{{ historiaClinica.signosVitalesCFV?.temperatura ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Frec. Respiratoria (FR)</label>
+            <p class="fw-semibold">{{ historiaClinica.signosVitalesCFV?.frecuenciaRespiratoria ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Peso</label>
+            <p class="fw-semibold">{{ historiaClinica.signosVitalesCFV?.peso ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Talla</label>
+            <p class="fw-semibold">{{ historiaClinica.signosVitalesCFV?.talla ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">IMC</label>
+            <p class="fw-semibold">{{ historiaClinica.signosVitalesCFV?.imc ?? '—' }}</p>
+          </div>
+        </div>
+
+        <!-- CONSULTA MÉDICA -->
+        <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Consulta Médica</h5>
+        <div class="row g-3">
+          <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Anamneasis</h5>
+          <div class="col-md-6">
+            
+            <p class="fw-semibold">{{ historiaClinica.anamneasis?.anamneasisDiagnostico ?? '—' }}</p>
+          </div>
+           <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Antecedentes Generales y Familiares</h5>
+
+            <div class="col-md-4">
+            <label class="form-label text-muted small">Médicos</label>
+            <p class="fw-semibold">{{ historiaClinica.antecedentesGeneralesFamiliares?.medicos ?? '—' }}</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Quirúrgicos (Qx)</label>
+            <p class="fw-semibold">{{ historiaClinica.antecedentesGeneralesFamiliares?.qx ?? '—' }}</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Alergias</label>
+            <p class="fw-semibold">{{ historiaClinica.antecedentesGeneralesFamiliares?.alergias ?? '—' }}</p>
+          </div>
+
+          
+        <!-- FUNCIONES BIOLÓGICAS -->
+        <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Funciones Biológicas</h5>
+        <div class="row g-3">
+          <div class="col-md-2">
+            <label class="form-label text-muted small">Apetito</label>
+            <p class="fw-semibold">{{ historiaClinica.funcionesBiologicas?.apetito ?? '—' }}</p>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label text-muted small">Sed</label>
+            <p class="fw-semibold">{{ historiaClinica.funcionesBiologicas?.sed ?? '—' }}</p>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label text-muted small">Sueño</label>
+            <p class="fw-semibold">{{ historiaClinica.funcionesBiologicas?.sueno ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Estado de Ánimo</label>
+            <p class="fw-semibold">{{ historiaClinica.funcionesBiologicas?.estadoAnimo ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Deposiciones</label>
+            <p class="fw-semibold">{{ historiaClinica.funcionesBiologicas?.deposicion ?? '—' }}</p>
+          </div>
+        </div>
+
+        <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Examen FIsico</h5>
+          <div class="col-md-6">
+            
+            <p class="fw-semibold">{{ historiaClinica.examenFisico?.diagnosticoExamenFisico ?? '—' }}</p>
+          </div>
+          
+        </div>
+
+
+        <!-- EXÁMENES AUXILIARES -->
+        <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Exámenes Auxiliares</h5>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Laboratorio</label>
+            <p class="fw-semibold">{{ historiaClinica.examenesAuxiliares?.laboratorio ?? '—' }}</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Dx por Imágenes</label>
+            <p class="fw-semibold">{{ historiaClinica.examenesAuxiliares?.dxPorImagenes ?? '—' }}</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Procedimientos</label>
+            <p class="fw-semibold">{{ historiaClinica.examenesAuxiliares?.procedimientos ?? '—' }}</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Interconsulta</label>
+            <p class="fw-semibold">{{ historiaClinica.examenesAuxiliares?.interconsulta ?? '—' }}</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Referencia</label>
+            <p class="fw-semibold">{{ historiaClinica.examenesAuxiliares?.referencia ?? '—' }}</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-muted small">Próxima Cita</label>
+            <p class="fw-semibold">{{ historiaClinica.examenesAuxiliares?.proximaCita ?? '—' }}</p>
+          </div>
+        </div>
+
+        <!-- DIAGNÓSTICOS -->
+        <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Diagnósticos</h5>
+        <div *ngIf="historiaClinica.diagnosticos && historiaClinica.diagnosticos.length > 0; else sinDiag" class="table-responsive">
+          <table class="table table-bordered table-sm align-middle">
+            <thead class="table-secondary">
+              <tr>
+                <th>#</th>
+                <th>Diagnóstico Establecido</th>
+                <th>CIE-10</th>
+                <th>Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let diag of historiaClinica.diagnosticos; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ diag.diagnosticoEstablecido }}</td>
+                <td><span class="badge bg-info text-dark">{{ diag.cie10 }}</span></td>
+                <td>{{ diag.tipoDiagnostico ?? '—' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #sinDiag>
+          <p class="text-muted fst-italic">Sin diagnósticos registrados.</p>
+        </ng-template>
+
+        <!-- TRATAMIENTO -->
+        <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Tratamiento</h5>
+        <p class="fw-semibold">{{ historiaClinica.tratamiento?.tratamientoEstablecido ?? '—' }}</p>
+
+        <!-- BOTONES -->
+        <div class="d-flex justify-content-between mt-4 border-top pt-3">
+          <button class="btn btn-secondary px-3" [routerLink]="['/historias-clinicas']">
+            <i class="bi bi-arrow-left me-1"></i> Volver
+          </button>
+          
+        </div>
+
+      </div>
+    </div>
+    }
+  </div>
+</div>
