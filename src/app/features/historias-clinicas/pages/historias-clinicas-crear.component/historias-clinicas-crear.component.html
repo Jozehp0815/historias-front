@@ -3,305 +3,309 @@
 
   <div class="container my-4">
     <div class="card shadow-lg border-0 rounded-4">
-      <div class="card-header bg-primary text-white rounded-top-4 d-flex justify-content-between align-items-center">
+      <div class="card-header bg-primary text-white rounded-top-4">
         <h4 class="mb-0">
           <i class="bi bi-file-medical-fill me-2"></i>
           Registro de Historia Clínica
         </h4>
-        <span class="badge bg-light text-primary fs-6">Nueva Historia</span>
       </div>
-      
+
       <div class="card-body p-4">
-        <!-- Pestañas de navegación -->
-        <ul class="nav nav-pills nav-fill mb-4 border pb-2 rounded p-1 bg-light">
-          <li class="nav-item">
-            <button type="button" class="nav-link" [class.active]="activeTab === 'datosGenerales'" (click)="setActiveTab('datosGenerales')">
-              <i class="bi bi-person-fill me-1"></i> Datos Generales / Triaje
-            </button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="nav-link" [class.active]="activeTab === 'signosVitales'" (click)="setActiveTab('signosVitales')">
-              <i class="bi bi-heart-pulse-fill me-1"></i> Signos Vitales
-            </button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="nav-link" [class.active]="activeTab === 'consultaMedica'" (click)="setActiveTab('consultaMedica')">
-              <i class="bi bi-journal-medical me-1"></i> Consulta & Tratamiento
-            </button>
-          </li>
-        </ul>
+        <form class="row g-4" (ngSubmit)="crearHistoriaClinica()" #hcForm="ngForm">
 
-        <form (ngSubmit)="crearHistoriaClinica()" #hcForm="ngForm">
-          
-          <!-- TAB 1: DATOS GENERALES -->
-          <div *ngIf="activeTab === 'datosGenerales'">
-            <h5 class="text-primary border-bottom pb-2 mb-3">Datos del Paciente y Triaje</h5>
-            <div class="row g-3">
-              <!-- Documento de Identidad -->
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Tipo Documento</label>
-                <select class="form-select" name="tipoDocumento" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.documentoIdentidad!.tipoDocumento">
-                  <option *ngFor="let tipo of tiposDocumento" [value]="tipo">{{ tipo }}</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">N° Documento *</label>
-                <input type="text" class="form-control" name="numeroDocumento" placeholder="Ej: 70654321" required [(ngModel)]="historiaClinica.datosGeneralesTriaje!.documentoIdentidad!.numeroDocumento">
-              </div>
-              
-              <!-- Nombres y Apellidos -->
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Nombres</label>
-                <input type="text" class="form-control" name="nombres" placeholder="Ej: Juan" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.nombres">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Apellidos</label>
-                <input type="text" class="form-control" name="apellidos" placeholder="Ej: Perez" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.apellidos">
-              </div>
+          <!-- DATOS DEL PACIENTE Y TRIAJE -->
+          <h5 class="text-primary border-bottom pb-2">Datos del Paciente y Triaje</h5>
 
-              <!-- Género y Estado Civil -->
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Género</label>
-                <select class="form-select" name="genero" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.genero">
-                  <option [value]="undefined">Seleccione...</option>
-                  <option *ngFor="let g of generos" [value]="g">{{ g }}</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Estado Civil</label>
-                <select class="form-select" name="estadoCivil" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.estadoCivil">
-                  <option [value]="undefined">Seleccione...</option>
-                  <option *ngFor="let ec of estadosCiviles" [value]="ec">{{ ec }}</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Fecha Nacimiento</label>
-                <input type="date" class="form-control" name="fechaNacimiento" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.fechaNacimiento">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Edad</label>
-                <input type="text" class="form-control" name="edad" placeholder="Ej: 28 años" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.edad">
-              </div>
+          <div class="col-md-3">
+            <label class="form-label">Tipo Documento</label>
+            <select class="form-select" name="tipoDocumento" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.documentoIdentidad!.tipoDocumento">
+              <option *ngFor="let tipo of tiposDocumento" [value]="tipo">{{ tipo }}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">N° Documento *</label>
+            <input type="text" class="form-control" name="numeroDocumento" placeholder="Ej: 70654321" required
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.documentoIdentidad!.numeroDocumento">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Nombres</label>
+            <input type="text" class="form-control" name="nombres" placeholder="Ej: Juan"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.nombres">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Apellidos</label>
+            <input type="text" class="form-control" name="apellidos" placeholder="Ej: Perez"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.apellidos">
+          </div>
 
-              <!-- Ocupación, Lugar Nacimiento, Teléfono y Religión -->
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Ocupación</label>
-                <input type="text" class="form-control" name="ocupacion" placeholder="Ej: Ingeniero" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.ocupacion">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Lugar Nacimiento</label>
-                <input type="text" class="form-control" name="lugarNacimiento" placeholder="Ej: Lima" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.lugarNacimiento">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Teléfono</label>
-                <input type="text" class="form-control" name="telefono" placeholder="Ej: 987654321" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.telefono">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Religión</label>
-                <select class="form-select" name="religion" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.religion">
-                  <option [value]="undefined">Seleccione...</option>
-                  <option *ngFor="let r of religiones" [value]="r">{{ r }}</option>
-                </select>
-              </div>
+          <div class="col-md-3">
+            <label class="form-label">Género</label>
+            <select class="form-select" name="genero" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.genero">
+              <option [value]="undefined">Seleccione...</option>
+              <option *ngFor="let g of generos" [value]="g">{{ g }}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Estado Civil</label>
+            <select class="form-select" name="estadoCivil" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.estadoCivil">
+              <option [value]="undefined">Seleccione...</option>
+              <option *ngFor="let ec of estadosCiviles" [value]="ec">{{ ec }}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Fecha Nacimiento</label>
+            <input type="date" class="form-control" name="fechaNacimiento"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.fechaNacimiento">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Edad</label>
+            <input type="text" class="form-control" name="edad" placeholder="Ej: 28 años"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.edad">
+          </div>
 
-              <!-- Domicilio y Acompañante -->
-              <div class="col-md-6">
-                <label class="form-label fw-bold">Domicilio Actual</label>
-                <input type="text" class="form-control" name="domicilioActual" placeholder="Ej: Av. Las Flores 123" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.domicilioActual">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label fw-bold">Datos Acompañante</label>
-                <input type="text" class="form-control" name="datosAcompanante" placeholder="Ej: Maria Perez (Madre)" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.datosAcompanante">
-              </div>
+          <div class="col-md-3">
+            <label class="form-label">Ocupación</label>
+            <input type="text" class="form-control" name="ocupacion" placeholder="Ej: Ingeniero"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.ocupacion">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Lugar Nacimiento</label>
+            <input type="text" class="form-control" name="lugarNacimiento" placeholder="Ej: Lima"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.lugarNacimiento">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Teléfono</label>
+            <input type="text" class="form-control" name="telefono" placeholder="Ej: 987654321"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.telefono">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Religión</label>
+            <select class="form-select" name="religion" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.religion">
+              <option [value]="undefined">Seleccione...</option>
+              <option *ngFor="let r of religiones" [value]="r">{{ r }}</option>
+            </select>
+          </div>
 
-              <!-- Atención details -->
-              <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Detalles de la Atención</h5>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Fecha de Atención</label>
-                <input type="date" class="form-control" name="fechaAtencion" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.fechaAtencion">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Hora de Atención</label>
-                <input type="time" class="form-control" name="horaAtencion" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.horaAtencion">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Especialidad</label>
-                <select class="form-select" name="especialidad" [(ngModel)]="historiaClinica.especialidad">
-                  <option [value]="undefined">Seleccione...</option>
-                  <option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Especialista (Médico)</label>
-                <input type="text" class="form-control" name="especialista" placeholder="Ej: Dr. Gomez" [(ngModel)]="historiaClinica.especialista">
-              </div>
-              <div class="col-md-3 d-flex align-items-center mt-4">
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="primeraAtencion" name="pacientePrimeraAtencion" [(ngModel)]="historiaClinica.pacientePrimeraAtencion">
-                  <label class="form-check-label fw-bold" for="primeraAtencion">¿Paciente de primera atención?</label>
-                </div>
-              </div>
+          <div class="col-md-6">
+            <label class="form-label">Domicilio Actual</label>
+            <input type="text" class="form-control" name="domicilioActual" placeholder="Ej: Av. Las Flores 123"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.domicilioActual">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Datos Acompañante</label>
+            <input type="text" class="form-control" name="datosAcompanante" placeholder="Ej: Maria Perez (Madre)"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.datosAcompanante">
+          </div>
+
+          <!-- DETALLES DE LA ATENCION -->
+          <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Detalles de la Atención</h5>
+
+          <div class="col-md-3">
+            <label class="form-label">Fecha de Atención</label>
+            <input type="date" class="form-control" name="fechaAtencion"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.fechaAtencion">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Hora de Atención</label>
+            <input type="time" class="form-control" name="horaAtencion"
+              [(ngModel)]="historiaClinica.datosGeneralesTriaje!.horaAtencion">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Especialidad</label>
+            <select class="form-select" name="especialidad" [(ngModel)]="historiaClinica.especialidad">
+              <option [value]="undefined">Seleccione...</option>
+              <option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Especialista (Médico)</label>
+            <input type="text" class="form-control" name="especialista" placeholder="Ej: Dr. Gomez"
+              [(ngModel)]="historiaClinica.especialista">
+          </div>
+          <div class="col-md-12">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="primeraAtencion" name="pacientePrimeraAtencion"
+                [(ngModel)]="historiaClinica.pacientePrimeraAtencion">
+              <label class="form-check-label" for="primeraAtencion">¿Paciente de primera atención?</label>
             </div>
           </div>
 
-          <!-- TAB 2: SIGNOS VITALES -->
-          <div *ngIf="activeTab === 'signosVitales'">
-            <h5 class="text-primary border-bottom pb-2 mb-3">Signos Vitales y Medidas</h5>
-            <div class="row g-3">
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Frecuencia Cardiaca (FC)</label>
-                <input type="text" class="form-control" name="frecuenciaCardiaca" placeholder="Ej: 75 lpm" [(ngModel)]="historiaClinica.signosVitalesCFV!.frecuenciaCardiaca">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Presión Arterial (PA)</label>
-                <input type="text" class="form-control" name="presionArterial" placeholder="Ej: 120/80 mmHg" [(ngModel)]="historiaClinica.signosVitalesCFV!.presionArterial">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Saturación Oxígeno (SpO2)</label>
-                <input type="text" class="form-control" name="saturacionOxigeno" placeholder="Ej: 98%" [(ngModel)]="historiaClinica.signosVitalesCFV!['saturaciónArterialOxígeno']">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Temperatura (°C)</label>
-                <input type="text" class="form-control" name="temperatura" placeholder="Ej: 36.5 °C" [(ngModel)]="historiaClinica.signosVitalesCFV!.temperatura">
-              </div>
-              
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Frecuencia Respiratoria (FR)</label>
-                <input type="text" class="form-control" name="frecuenciaRespiratoria" placeholder="Ej: 16 rpm" [(ngModel)]="historiaClinica.signosVitalesCFV!.frecuenciaRespiratoria">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Peso (kg)</label>
-                <input type="text" class="form-control" name="peso" placeholder="Ej: 70 kg" [(ngModel)]="historiaClinica.signosVitalesCFV!.peso">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">Talla (m)</label>
-                <input type="text" class="form-control" name="talla" placeholder="Ej: 1.70 m" [(ngModel)]="historiaClinica.signosVitalesCFV!.talla">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">IMC</label>
-                <input type="text" class="form-control" name="imc" placeholder="Ej: 24.2" [(ngModel)]="historiaClinica.signosVitalesCFV!.imc">
-              </div>
-            </div>
+          <!-- SIGNOS VITALES -->
+          <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Signos Vitales y Medidas</h5>
+
+          <div class="col-md-3">
+            <label class="form-label">Frecuencia Cardiaca (FC)</label>
+            <input type="text" class="form-control" name="frecuenciaCardiaca" placeholder="Ej: 75 lpm"
+              [(ngModel)]="historiaClinica.signosVitalesCFV!.frecuenciaCardiaca">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Presión Arterial (PA)</label>
+            <input type="text" class="form-control" name="presionArterial" placeholder="Ej: 120/80 mmHg"
+              [(ngModel)]="historiaClinica.signosVitalesCFV!.presionArterial">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Saturación Oxígeno (SpO2)</label>
+            <input type="text" class="form-control" name="saturacionOxigeno" placeholder="Ej: 98%"
+              [(ngModel)]="historiaClinica.signosVitalesCFV!['saturaciónArterialOxígeno']">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Temperatura (°C)</label>
+            <input type="text" class="form-control" name="temperatura" placeholder="Ej: 36.5 °C"
+              [(ngModel)]="historiaClinica.signosVitalesCFV!.temperatura">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Frecuencia Respiratoria (FR)</label>
+            <input type="text" class="form-control" name="frecuenciaRespiratoria" placeholder="Ej: 16 rpm"
+              [(ngModel)]="historiaClinica.signosVitalesCFV!.frecuenciaRespiratoria">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Peso (kg)</label>
+            <input type="text" class="form-control" name="peso" placeholder="Ej: 70 kg"
+              [(ngModel)]="historiaClinica.signosVitalesCFV!.peso">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Talla (m)</label>
+            <input type="text" class="form-control" name="talla" placeholder="Ej: 1.70 m"
+              [(ngModel)]="historiaClinica.signosVitalesCFV!.talla">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">IMC</label>
+            <input type="text" class="form-control" name="imc" placeholder="Ej: 24.2"
+              [(ngModel)]="historiaClinica.signosVitalesCFV!.imc">
           </div>
 
-          <!-- TAB 3: CONSULTA MEDICA -->
-          <div *ngIf="activeTab === 'consultaMedica'">
-            <!-- Anamnesis y Antecedentes -->
-            <div class="row g-3">
-              <div class="col-md-6">
-                <h5 class="text-primary border-bottom pb-2 mb-3">Anamnesis</h5>
-                <label class="form-label fw-bold">Descripción de Anamnesis</label>
-                <textarea class="form-control" name="anamneasisDiagnostico" rows="3" placeholder="Descripción de síntomas, dolencias y estado inicial..." [(ngModel)]="historiaClinica.anamneasis!.anamneasisDiagnostico"></textarea>
-              </div>
-              
-              <div class="col-md-6">
-                <h5 class="text-primary border-bottom pb-2 mb-3">Antecedentes Generales y Familiares</h5>
-                <div class="mb-2">
-                  <label class="form-label fw-bold">Antecedentes Médicos</label>
-                  <input type="text" class="form-control" name="antecedentesMedicos" placeholder="Diabetes, hipertensión..." [(ngModel)]="historiaClinica.antecedentesGeneralesFamiliares!.medicos">
-                </div>
-                <div class="mb-2">
-                  <label class="form-label fw-bold">Antecedentes Quirúrgicos (Qx)</label>
-                  <input type="text" class="form-control" name="antecedentesQx" placeholder="Apendicectomía, etc..." [(ngModel)]="historiaClinica.antecedentesGeneralesFamiliares!.qx">
-                </div>
-                <div>
-                  <label class="form-label fw-bold">Alergias</label>
-                  <input type="text" class="form-control" name="alergias" placeholder="Alergia a penicilina, etc..." [(ngModel)]="historiaClinica.antecedentesGeneralesFamiliares!.alergias">
-                </div>
-              </div>
-            </div>
+          <!-- ANAMNESIS -->
+          <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Anamnesis</h5>
 
-            <!-- Funciones Biológicas y Examen Físico -->
-            <div class="row g-3 mt-3">
-              <div class="col-md-6">
-                <h5 class="text-primary border-bottom pb-2 mb-3">Funciones Biológicas</h5>
-                <div class="row g-2">
-                  <div class="col-md-4">
-                    <label class="form-label fw-bold">Apetito</label>
-                    <input type="text" class="form-control form-control-sm" name="apetito" placeholder="Normal, disminuido..." [(ngModel)]="historiaClinica.funcionesBiologicas!.apetito">
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label fw-bold">Sed</label>
-                    <input type="text" class="form-control form-control-sm" name="sed" placeholder="Normal, aumentada..." [(ngModel)]="historiaClinica.funcionesBiologicas!.sed">
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label fw-bold">Sueño</label>
-                    <input type="text" class="form-control form-control-sm" name="sueno" placeholder="Normal, insomnio..." [(ngModel)]="historiaClinica.funcionesBiologicas!.sueno">
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">Estado de Ánimo</label>
-                    <input type="text" class="form-control form-control-sm" name="estadoAnimo" placeholder="Estable, ansioso..." [(ngModel)]="historiaClinica.funcionesBiologicas!.estadoAnimo">
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">Deposiciones</label>
-                    <input type="text" class="form-control form-control-sm" name="deposicion" placeholder="Normal, estreñimiento..." [(ngModel)]="historiaClinica.funcionesBiologicas!.deposicion">
-                  </div>
-                </div>
-              </div>
+          <div class="col-md-12">
+            <label class="form-label">Descripción de Anamnesis</label>
+            <textarea class="form-control" name="anamneasisDiagnostico" rows="3"
+              placeholder="Descripción de síntomas, dolencias y estado inicial..."
+              [(ngModel)]="historiaClinica.anamneasis!.anamneasisDiagnostico"></textarea>
+          </div>
 
-              <div class="col-md-6">
-                <h5 class="text-primary border-bottom pb-2 mb-3">Examen Físico</h5>
-                <label class="form-label fw-bold">Diagnóstico Examen Físico</label>
-                <textarea class="form-control" name="diagnosticoExamenFisico" rows="3" placeholder="Inspección, palpación, auscultación..." [(ngModel)]="historiaClinica.examenFisico!.diagnosticoExamenFisico"></textarea>
-              </div>
-            </div>
+          <!-- ANTECEDENTES -->
+          <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Antecedentes Generales y Familiares</h5>
 
-            <!-- Exámenes Auxiliares -->
-            <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Exámenes Auxiliares</h5>
-            <div class="row g-3">
-              <div class="col-md-4">
-                <label class="form-label fw-bold">Laboratorio</label>
-                <input type="text" class="form-control" name="laboratorio" placeholder="Hemograma, glucosa, etc." [(ngModel)]="historiaClinica.examenesAuxiliares!.laboratorio">
-              </div>
-              <div class="col-md-4">
-                <label class="form-label fw-bold">Diagnóstico por Imágenes</label>
-                <input type="text" class="form-control" name="dxPorImagenes" placeholder="Radiografías, ecografías, etc." [(ngModel)]="historiaClinica.examenesAuxiliares!.dxPorImagenes">
-              </div>
-              <div class="col-md-4">
-                <label class="form-label fw-bold">Procedimientos</label>
-                <input type="text" class="form-control" name="procedimientos" placeholder="Infiltración, etc." [(ngModel)]="historiaClinica.examenesAuxiliares!.procedimientos">
-              </div>
-              <div class="col-md-4">
-                <label class="form-label fw-bold">Interconsulta</label>
-                <input type="text" class="form-control" name="interconsulta" placeholder="Interconsulta con Cardiología, etc." [(ngModel)]="historiaClinica.examenesAuxiliares!.interconsulta">
-              </div>
-              <div class="col-md-4">
-                <label class="form-label fw-bold">Referencia</label>
-                <input type="text" class="form-control" name="referencia" placeholder="Derivación a hospital, etc." [(ngModel)]="historiaClinica.examenesAuxiliares!.referencia">
-              </div>
-              <div class="col-md-4">
-                <label class="form-label fw-bold">Próxima Cita</label>
-                <input type="text" class="form-control" name="proximaCita" placeholder="En 15 días, etc." [(ngModel)]="historiaClinica.examenesAuxiliares!.proximaCita">
-              </div>
-            </div>
+          <div class="col-md-4">
+            <label class="form-label">Antecedentes Médicos</label>
+            <input type="text" class="form-control" name="antecedentesMedicos" placeholder="Diabetes, hipertensión..."
+              [(ngModel)]="historiaClinica.antecedentesGeneralesFamiliares!.medicos">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Antecedentes Quirúrgicos (Qx)</label>
+            <input type="text" class="form-control" name="antecedentesQx" placeholder="Apendicectomía, etc..."
+              [(ngModel)]="historiaClinica.antecedentesGeneralesFamiliares!.qx">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Alergias</label>
+            <input type="text" class="form-control" name="alergias" placeholder="Alergia a penicilina, etc..."
+              [(ngModel)]="historiaClinica.antecedentesGeneralesFamiliares!.alergias">
+          </div>
 
-            <!-- Diagnósticos Dinámicos -->
-            <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Diagnósticos</h5>
-            <div class="row g-3 align-items-end bg-light p-3 rounded border mb-3">
-              <div class="col-md-5">
-                <label class="form-label fw-bold">Diagnóstico Establecido</label>
-                <input type="text" class="form-control" name="tempDiagEstablecido" placeholder="Ej: Faringitis Aguda" [(ngModel)]="nuevoDiagnostico.diagnosticoEstablecido">
-              </div>
-              <div class="col-md-3">
-                <label class="form-label fw-bold">CIE-10</label>
-                <input type="text" class="form-control" name="tempCie10" placeholder="Ej: J02.9" [(ngModel)]="nuevoDiagnostico.cie10">
-              </div>
-              <div class="col-md-2">
-                <label class="form-label fw-bold">Tipo</label>
-                <select class="form-select" name="tempTipoDiag" [(ngModel)]="nuevoDiagnostico.tipoDiagnostico">
-                  <option [value]="undefined">Selec.</option>
-                  <option *ngFor="let td of tiposDiagnostico" [value]="td">{{ td }}</option>
-                </select>
-              </div>
-              <div class="col-md-2">
-                <button type="button" class="btn btn-success w-100" (click)="agregarDiagnostico()">
-                  <i class="bi bi-plus-circle-fill me-1"></i> Agregar
-                </button>
-              </div>
-            </div>
+          <!-- FUNCIONES BIOLOGICAS -->
+          <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Funciones Biológicas</h5>
 
-            <!-- Tabla de diagnósticos agregados -->
-            <div class="table-responsive mb-4" *ngIf="historiaClinica.diagnosticos && historiaClinica.diagnosticos.length > 0">
+          <div class="col-md-3">
+            <label class="form-label">Apetito</label>
+            <input type="text" class="form-control" name="apetito" placeholder="Normal, disminuido..."
+              [(ngModel)]="historiaClinica.funcionesBiologicas!.apetito">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Sed</label>
+            <input type="text" class="form-control" name="sed" placeholder="Normal, aumentada..."
+              [(ngModel)]="historiaClinica.funcionesBiologicas!.sed">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Sueño</label>
+            <input type="text" class="form-control" name="sueno" placeholder="Normal, insomnio..."
+              [(ngModel)]="historiaClinica.funcionesBiologicas!.sueno">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Estado de Ánimo</label>
+            <input type="text" class="form-control" name="estadoAnimo" placeholder="Estable, ansioso..."
+              [(ngModel)]="historiaClinica.funcionesBiologicas!.estadoAnimo">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Deposiciones</label>
+            <input type="text" class="form-control" name="deposicion" placeholder="Normal, estreñimiento..."
+              [(ngModel)]="historiaClinica.funcionesBiologicas!.deposicion">
+          </div>
+
+          <!-- EXAMEN FISICO -->
+          <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Examen Físico</h5>
+
+          <div class="col-md-12">
+            <label class="form-label">Diagnóstico Examen Físico</label>
+            <textarea class="form-control" name="diagnosticoExamenFisico" rows="3"
+              placeholder="Inspección, palpación, auscultación..."
+              [(ngModel)]="historiaClinica.examenFisico!.diagnosticoExamenFisico"></textarea>
+          </div>
+
+          <!-- EXAMENES AUXILIARES -->
+          <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Exámenes Auxiliares</h5>
+
+          <div class="col-md-4">
+            <label class="form-label">Laboratorio</label>
+            <input type="text" class="form-control" name="laboratorio" placeholder="Hemograma, glucosa, etc."
+              [(ngModel)]="historiaClinica.examenesAuxiliares!.laboratorio">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Diagnóstico por Imágenes</label>
+            <input type="text" class="form-control" name="dxPorImagenes" placeholder="Radiografías, ecografías, etc."
+              [(ngModel)]="historiaClinica.examenesAuxiliares!.dxPorImagenes">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Procedimientos</label>
+            <input type="text" class="form-control" name="procedimientos" placeholder="Infiltración, etc."
+              [(ngModel)]="historiaClinica.examenesAuxiliares!.procedimientos">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Interconsulta</label>
+            <input type="text" class="form-control" name="interconsulta"
+              placeholder="Interconsulta con Cardiología, etc."
+              [(ngModel)]="historiaClinica.examenesAuxiliares!.interconsulta">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Referencia</label>
+            <input type="text" class="form-control" name="referencia" placeholder="Derivación a hospital, etc."
+              [(ngModel)]="historiaClinica.examenesAuxiliares!.referencia">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Próxima Cita</label>
+            <input type="text" class="form-control" name="proximaCita" placeholder="En 15 días, etc."
+              [(ngModel)]="historiaClinica.examenesAuxiliares!.proximaCita">
+          </div>
+
+          <!-- DIAGNOSTICOS -->
+          <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Diagnósticos</h5>
+
+          <div class="col-md-5">
+            <label class="form-label">Diagnóstico Establecido</label>
+            <input type="text" class="form-control" name="tempDiagEstablecido" placeholder="Ej: Faringitis Aguda"
+              [(ngModel)]="nuevoDiagnostico.diagnosticoEstablecido">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">CIE-10</label>
+            <input type="text" class="form-control" name="tempCie10" placeholder="Ej: J02.9"
+              [(ngModel)]="nuevoDiagnostico.cie10">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Tipo</label>
+            <select class="form-select" name="tempTipoDiag" [(ngModel)]="nuevoDiagnostico.tipoDiagnostico">
+              <option [value]="undefined">Selec.</option>
+              <option *ngFor="let td of tiposDiagnostico" [value]="td">{{ td }}</option>
+            </select>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button type="button" class="btn btn-success w-100" (click)="agregarDiagnostico()">
+              <i class="bi bi-plus-circle-fill me-1"></i> Agregar
+            </button>
+          </div>
+
+          <!-- Tabla de diagnósticos -->
+          <div class="col-md-12" *ngIf="historiaClinica.diagnosticos && historiaClinica.diagnosticos.length > 0">
+            <div class="table-responsive">
               <table class="table table-sm table-bordered align-middle">
                 <thead class="table-secondary">
                   <tr>
@@ -325,21 +329,24 @@
                 </tbody>
               </table>
             </div>
-
-            <!-- Tratamiento -->
-            <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Tratamiento</h5>
-            <div class="mb-3">
-              <label class="form-label fw-bold">Tratamiento Establecido</label>
-              <textarea class="form-control" name="tratamientoEstablecido" rows="3" placeholder="Receta médica, indicaciones, dosis y frecuencia..." [(ngModel)]="historiaClinica.tratamiento!.tratamientoEstablecido"></textarea>
-            </div>
           </div>
 
-          <!-- BOTONES DE ACCION -->
-          <div class="d-flex justify-content-between mt-5 border-top pt-3">
-            <button type="button" class="btn btn-secondary px-3" [routerLink]="['/historias-clinicas']">
+          <!-- TRATAMIENTO -->
+          <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Tratamiento</h5>
+
+          <div class="col-md-12">
+            <label class="form-label">Tratamiento Establecido</label>
+            <textarea class="form-control" name="tratamientoEstablecido" rows="3"
+              placeholder="Receta médica, indicaciones, dosis y frecuencia..."
+              [(ngModel)]="historiaClinica.tratamiento!.tratamientoEstablecido"></textarea>
+          </div>
+
+          <!-- BOTONES -->
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-secondary px-3" type="button" [routerLink]="['/historias-clinicas']">
               <i class="bi bi-arrow-left me-1"></i> Volver
             </button>
-            <button type="submit" class="btn btn-primary px-4" [disabled]="!hcForm.form.valid">
+            <button class="btn btn-primary px-4" type="submit" [disabled]="!hcForm.form.valid">
               <i class="bi bi-save me-1"></i> Guardar Historia Clínica
             </button>
           </div>
@@ -348,4 +355,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>
