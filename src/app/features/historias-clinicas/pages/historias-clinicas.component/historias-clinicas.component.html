@@ -1,0 +1,126 @@
+<div class="d-flex">
+  <app-sidebar></app-sidebar>
+
+  <main class="flex-fill bg-light min-vh-100 p-4">
+    <div class="container-fluid">
+      <!-- Title & Create Button -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1 class="h3 mb-0 text-gray-800">Historias Clínicas</h1>
+          <p class="text-muted mb-0">Gestión y registro de historias clínicas de pacientes.</p>
+        </div>
+        <button class="btn btn-primary" type="button" [routerLink]="['/historias-clinicas/crear']">
+          <i class="bi bi-plus-circle me-1"></i> Nueva Historia Clínica
+        </button>
+      </div>
+
+      <!-- Search Filters Card -->
+      <div class="card shadow-sm border-0 mb-4 rounded-3">
+        <div class="card-body p-3">
+          <form (submit)="buscarHistoriasClinicas()" class="row g-3 align-items-end">
+            <div class="col-md-3">
+              <label class="form-label fw-bold text-secondary">Buscar por:</label>
+              <select class="form-select" name="searchType" [(ngModel)]="searchType">
+                <option value="todos">Todos</option>
+                <option value="numeroDocumento">Número Documento</option>
+                <option value="especialidad">Especialidad</option>
+                <option value="nombres">Nombres</option>
+                <option value="apellidos">Apellidos</option>
+              </select>
+            </div>
+
+            <div class="col-md-5" *ngIf="searchType !== 'todos'">
+              <label class="form-label fw-bold text-secondary">Valor de búsqueda:</label>
+              
+              <!-- Specialty dropdown selection if searchType is 'especialidad' -->
+              <select *ngIf="searchType === 'especialidad'" class="form-select" name="searchValue" [(ngModel)]="searchValue">
+                <option value="">Seleccione especialidad...</option>
+                <option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</option>
+              </select>
+              
+              <!-- Standard text input for other search types -->
+              <input *ngIf="searchType !== 'especialidad'" type="text" class="form-control" name="searchValue" placeholder="Ej: 70654321, Juan, Perez..." [(ngModel)]="searchValue">
+            </div>
+
+            <div class="col text-end">
+              <button type="submit" class="btn btn-success me-2 px-3">
+                <i class="bi bi-search me-1"></i> Buscar
+              </button>
+              <button type="button" class="btn btn-outline-secondary px-3" (click)="limpiarBusqueda()">
+                <i class="bi bi-x-circle me-1"></i> Limpiar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Clinical Histories Table Card -->
+      <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0 align-middle">
+              <thead class="table-dark">
+                <tr>
+                  <th class="ps-3" style="width: 80px;">N°</th>
+                  <th>Documento Identidad</th>
+                  <th>Paciente (Apellidos y Nombres)</th>
+                  <th>Especialidad</th>
+                  <th>Primera Atención</th>
+                  <th>Fecha y Hora</th>
+                  <th class="text-center" style="width: 250px;">Acciones</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let hc of historiasClinicas; let idx = index">
+                  <td class="ps-3 fw-bold text-secondary">{{ hc.idHistoriaClinica }}</td>
+                  <td>
+                    <span class="badge bg-secondary me-1" *ngIf="hc.documentoIdentidad.tipoDocumento">
+                      {{ hc.documentoIdentidad.tipoDocumento }}
+                    </span>
+                    <strong>{{ hc.documentoIdentidad.numeroDocumento }}</strong>
+                  </td>
+                  <td>{{ hc.apellidos }}, {{ hc.nombres }}</td>
+                  <td>
+                    <span class="badge bg-info text-dark">{{ hc.especialidad }}</span>
+                  </td>
+                  <td>
+                    <span class="badge" [class.bg-success]="hc.pacientePrimeraAtencion" [class.bg-warning]="!hc.pacientePrimeraAtencion">
+                      {{ hc.pacientePrimeraAtencion ? 'Sí' : 'No' }}
+                    </span>
+                  </td>
+                  <td>
+                    <i class="bi bi-calendar3 me-1 text-muted"></i>{{ hc.fechaAtencion }}
+                    <span class="text-muted ms-2"><i class="bi bi-clock me-1"></i>{{ hc.horaAtencion }}</span>
+                  </td>
+                  <td class="text-center pe-3">
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-outline-info btn-sm" [routerLink]="['/historias-clinicas/ver', hc.idHistoriaClinica]" title="Visualizar">
+                        <i class="bi bi-eye-fill"></i> Ver
+                      </button>
+                      <button type="button" class="btn btn-outline-warning btn-sm" [routerLink]="['/historias-clinicas/editar', hc.idHistoriaClinica]" title="Editar">
+                        <i class="bi bi-pencil-fill"></i> Editar
+                      </button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarHistoria(hc.idHistoriaClinica)" title="Eliminar">
+                        <i class="bi bi-trash-fill"></i> Eliminar
+                      </button>
+                      <button type="button" class="btn btn-outline-success btn-sm" (click)="descargarPdf(hc.idHistoriaClinica)" title="Descargar PDF">
+                        <i class="bi bi-filetype-pdf"></i> PDF
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="historiasClinicas.length === 0">
+                  <td colspan="7" class="text-center py-4 text-muted">
+                    <i class="bi bi-info-circle fs-3 d-block mb-2"></i>
+                    No se encontraron historias clínicas registradas.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
