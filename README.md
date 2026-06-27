@@ -1,59 +1,61 @@
 # HistoriasFront
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.6.
+Frontend del sistema de **Historias Clínicas Electrónicas**  
+Desarrollado con **Angular 21** y **Bootstrap 5**.
 
-## Development server
+## Capturas de Pantalla
 
-To start a local development server, run:
+| Home | Listado de Historias Clínicas |
+|------|------------------------------|
+| ![Home](images/home.png) | ![Historias](images/historias.png) |
+
+## Funcionalidades
+
+- **Home** — Panel con resumen: total de historias clínicas, creadas hoy y creadas en el mes.
+- **Listar** — Tabla con todas las historias clínicas registradas, con búsqueda por número de documento, especialidad, nombres o apellidos.
+- **Crear** — Formulario con pestañas para registrar una nueva historia clínica (Datos Generales, Signos Vitales, Consulta y Tratamiento).
+- **Ver** — Vista detallada de una historia clínica.
+- **Editar** — Modificación de una historia clínica existente.
+- **Eliminar** — Borrado de registros.
+- **Descargar PDF** — Genera y descarga un PDF con los datos completos de la historia clínica.
+
+## Tecnologías
+
+| Tecnología | Versión |
+|-----------|---------|
+| Angular | 21 |
+| Bootstrap | 5.3 |
+| TypeScript | 5.9 |
+| Vitest | 4.0 |
+
+## Requisitos
+
+- Node.js >= 22
+- Angular CLI (`npm install -g @angular/cli`)
+- Backend corriendo en `http://localhost:8080`
+
+## Instalación
+
+```bash
+npm install
+```
+
+## Desarrollo
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navegar a `http://localhost:4200`. La aplicación se recarga automáticamente al modificar archivos.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Build
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Los artefactos se generan en `dist/`.
 
-## Running unit tests
+## Backend
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+El backend correspondiente está en el proyecto `historias-back` (Spring Boot + PostgreSQL), https://github.com/Jozehp0815/historias-back.git.
