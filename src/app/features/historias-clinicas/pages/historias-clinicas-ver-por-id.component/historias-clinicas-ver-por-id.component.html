@@ -67,16 +67,12 @@
             <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.fechaNacimiento ?? '—' }}</p>
           </div>
           <div class="col-md-2">
+            <label class="form-label text-muted small">Grado de Instrucción</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.gradoInstruccion ?? '—' }}</p>
+          </div>
+          <div class="col-md-2">
             <label class="form-label text-muted small">Edad</label>
             <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.edad ?? '—' }}</p>
-          </div>
-          <div class="col-md-2">
-            <label class="form-label text-muted small">Fecha Atención</label>
-            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.fechaAtencion ?? '—' }}</p>
-          </div>
-          <div class="col-md-2">
-            <label class="form-label text-muted small">Hora Atención</label>
-            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.horaAtencion ?? '—' }}</p>
           </div>
 
           <div class="col-md-3">
@@ -108,6 +104,14 @@
         <!-- DETALLES ATENCIÓN -->
         <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Detalles de la Atención</h5>
         <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Fecha de Atención</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.fechaAtencion ?? '—' }}</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small">Hora de Atención</label>
+            <p class="fw-semibold">{{ historiaClinica.datosGeneralesTriaje?.horaAtencion ?? '—' }}</p>
+          </div>
           <div class="col-md-4">
             <label class="form-label text-muted small">Especialidad</label>
             <p class="fw-semibold"><span class="badge bg-info text-dark fs-6">{{ historiaClinica.especialidad ?? '—' }}</span></p>
@@ -138,7 +142,7 @@
             <p class="fw-semibold">{{ historiaClinica.signosVitalesCFV?.presionArterial ?? '—' }}</p>
           </div>
           <div class="col-md-3">
-            <label class="form-label text-muted small">Saturación O₂ (SpO2)</label>
+            <label class="form-label text-muted small">Saturación O₂ (SaO2)</label>
             <p class="fw-semibold">{{ historiaClinica.signosVitalesCFV?.['saturaciónArterialOxígeno'] ?? '—' }}</p>
           </div>
           <div class="col-md-3">

@@ -58,6 +58,13 @@
               [(ngModel)]="historiaClinica.datosGeneralesTriaje!.fechaNacimiento">
           </div>
           <div class="col-md-3">
+            <label class="form-label">Grado de Instrucción</label>
+            <select class="form-select" name="gradoInstruccion" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.gradoInstruccion">
+              <option [value]="undefined">Seleccione...</option>
+              <option *ngFor="let grado of gradosInstruccion" [value]="grado">{{ grado }}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
             <label class="form-label">Edad</label>
             <input type="text" class="form-control" name="edad" placeholder="Ej: 28 años"
               [(ngModel)]="historiaClinica.datosGeneralesTriaje!.edad">
@@ -355,4 +362,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>
