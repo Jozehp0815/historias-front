@@ -82,6 +82,13 @@
                   [(ngModel)]="historiaClinica.datosGeneralesTriaje!.fechaNacimiento">
               </div>
               <div class="col-md-3">
+                <label class="form-label fw-bold">Grado de Instrucción</label>
+                <select class="form-select" name="gradoInstruccion" [(ngModel)]="historiaClinica.datosGeneralesTriaje!.gradoInstruccion">
+                  <option [value]="undefined">Seleccione...</option>
+                  <option *ngFor="let grado of gradosInstruccion" [value]="grado">{{ grado }}</option>
+                </select>
+              </div>
+              <div class="col-md-3">
                 <label class="form-label fw-bold">Edad</label>
                 <input type="text" class="form-control" name="edad"
                   [(ngModel)]="historiaClinica.datosGeneralesTriaje!.edad">
@@ -121,6 +128,16 @@
               </div>
 
               <h5 class="text-primary border-bottom pb-2 mt-4 mb-3">Detalles de la Atención</h5>
+              <div class="col-md-3">
+                <label class="form-label fw-bold">Fecha de Atención</label>
+                <input type="date" class="form-control" name="fechaAtencion"
+                  [(ngModel)]="historiaClinica.datosGeneralesTriaje!.fechaAtencion">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-bold">Hora de Atención</label>
+                <input type="time" class="form-control" name="horaAtencion"
+                  [(ngModel)]="historiaClinica.datosGeneralesTriaje!.horaAtencion">
+              </div>
               <div class="col-md-4">
                 <label class="form-label fw-bold">Especialidad</label>
                 <select class="form-select" name="especialidad" [(ngModel)]="historiaClinica.especialidad">
